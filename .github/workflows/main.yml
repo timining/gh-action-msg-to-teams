@@ -1,0 +1,22 @@
+on: [push]
+
+jobs:
+  hello_world_job:
+    runs-on: ubuntu-latest
+    name: Send a Microsoft Teams message
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      
+      - id: teams-notification
+        name: Send notification
+        uses: ./ # Uses an action in the root directory
+        with:
+          webhook-url: ${{ secrets.MS_TEAMS_WEBHOOK_URI }}
+          title: '🎉 A new release!'
+          summary: 'This is a test. ✅ - ❌'
+          subtitle: 'v1.0'
+          facts: '[{ "title": "version", "value": "2022-06" }, { "title": "thanks to", "value": "devops" }]'
+      
+      - name: Get the response
+        run: echo "The time was ${{ steps.teams-notification.outputs.webhook_response }}"
