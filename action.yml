@@ -1,0 +1,29 @@
+name: 'gh-action-msg-to-teams'
+description: 'Send a Message to Microsoft Teams'
+inputs:
+  webhook-url:
+    description: 'Webhook URL'
+    required: true
+    default: ''
+  summary:
+    description: 'Summary'
+    required: true
+    default: ''
+  title:
+    description: 'Title'
+    required: true
+    default: ''
+  subtitle:
+    description: 'Subtitle'
+    required: false
+    default: ''
+  facts:
+    description: 'Key/Value json array, ex: [{"title": "firstname", "value": "normeno"}]'
+    required: true
+    default: '[]'
+outputs:
+  webhook_response:
+    description: 'Teams Webhook response'
+runs:
+  using: 'node16'
+  main: 'index.js'
